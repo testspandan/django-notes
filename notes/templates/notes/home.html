@@ -143,7 +143,22 @@
         });
     </script>
 
-
+    <h2>Notes:</h2>
+    <ul>
+        {% for note in notes %}
+            <li class="note">{{ note.content|safe }}
+                <!-- Delete button -->
+                <button class="delete-btn" onclick="alert('You need admin permission to delete this note')">Delete</button>
+            </li>
+            <script>
+                const markdownContent = `{{ note.content|escapejs }}`;
+                const htmlContent = marked(markdownContent);
+                const container = document.createElement('div');
+                container.innerHTML = htmlContent;
+                document.body.appendChild(container);
+            </script>
+        {% endfor %}
+    </ul>
     <p>Note: Any user is able to add notes; admin is not responsible for the content of notes.</p>
 </body>
 </html>
